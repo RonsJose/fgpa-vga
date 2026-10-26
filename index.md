@@ -5,17 +5,24 @@ tags: fpga vga verilog
 categories: demo
 ---
 
-Add a short welcome message or introduction here. Aim to get the viewer interested in what follows! Guideline: 1 or 2 sentences. 
-
-I am adding a test sentence here at 13:24 on 03/12/24.
+Hello, in this blog I'm going to be devloping and adapting an FPGA VGA driver to display graphics on a
+640x480 display
 
 ## **Template VGA Design**
 ### **Project Set-Up**
-Summarise the project set-up and design flow. Include a screenshot of your own set-up, for example see the image of my Project Summary window below. Guideline 1 short paragraph.
+Create a new RTL project and add the source, contraints, and simulation files. Select the xc7a35tcpg236-1 board and finish the setup. 
+
+Next we need to add a clock by going into IP Catalog > Foundational elements > clock and reset > Clocking wizard. And we need to set this to 25 MHz.
 
 <img src="https://raw.githubusercontent.com/melgineer/fpga-vga-verilog/main/docs/assets/images/VGAPrjSum.png">
+
 ### **Template Code**
-Outline the structure and design of the Verilog code templates you were given. What do they do? Include reference to how a VGA interface works. Guideline: 2/3 short paragraphs, consider including screenshot(s).
+
+> [!NOTE]
+> A VGA interface works by instructing each individual pixel going left to right per line on a 640x480 display. It uses horizontal syncs to reset the electron beam back to the right hand side and the vertical sync to reset the current frame and go back to the top left position to get ready for the next frame.
+
+VGASync tracks the horizontal and veritcal sync and sets the vid_on flag, to track the position of the beam. VGAColourStripes splits the 640 horizontal pixels into 8 sections assigning 80 pixels to each colour. VGATop wires everything together and routes the RBG outputs so that it does not create noise when the beam is being reset.
+
 ### **Simulation**
 Explain the simulation process. Reference any important details, include a well-selected screenshot of the simulation. Guideline: 1/2 short paragraphs.
 ### **Synthesis**
