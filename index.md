@@ -10,7 +10,7 @@ Hello, in this blog I'm going to be devloping and adapting an FPGA VGA driver to
 
 ## **Template VGA Design**
 ### **Project Set-Up**
-Create a new RTL project and add the source, contraints, and simulation files. Select the xc7a35tcpg236-1 board and finish the setup. 
+Create a new RTL project and add the source, contraints, and simulation files that are given. Select the xc7a35tcpg236-1 board and finish the setup. 
 
 Next we need to add a clock by going into IP Catalog > Foundational elements > clock and reset > Clocking wizard. And we need to set this to 25 MHz.
 
@@ -62,37 +62,54 @@ Then we run a behavorial simulation which executes the verilog RTL logic over a 
 <img width="1057" height="374" alt="image" src="https://github.com/user-attachments/assets/91c314d9-39d3-41e3-a52f-e920c87834e1" />
 
 You can see at the start that the reset is high for 20 ns this is to make sure all the counters and registers initialize properly without starting with unknown values. While reset is high the vid_on flag is low, when reset goes low the vid_on flag goes high and remains active for all 640 pixels and you can see the red, geen, and blue rgb values go through all 8 colours in the stripes. Then when the beam goes past 640 pixels into the horizontal blanking area vid_on goes low, and you can see hsync go low after it has reached the limit and go back to high and the counter for which row it is increase from 0 to 1. Vsync doesnt go low because it only resets after each frame and 10 us is not enough time for that.
+
+> [NOTE]
+> 
+> Even though the rgb colour values are not set to 0 in the picture of the waveform when the vid_on flag goes low, using 2-1 multiplexers we force the rgb values to 0 regardless of what colourStripes says although it will still keep counting through the colours even in the blanking period which is what we see in the waveform.
  
 ### **Synthesis**
-Describe the synthesis and implementation processes. Consider including 1/2 useful screenshot(s). Guideline: 1/2 short paragraphs.
+
+I'll describe it in more detail when going over my designs synthesis but the simple explaination for synthesis and implementation is that it translates the verilog RTL design into a gate level netlist. Implementation takes the netlist from the synthesis and fits it to the actual physical board the basys 3 in our case.
 ### **Demonstration**
-Perhaps add a picture of your demo. Guideline: 1/2 sentences.
+
+I forget to take a picture, but I'll take one of the demo one later. Basicly you can see all the 8 colour stripes on the monitor that are being output from the basys board, and the reset sets the screen to black.
+
 
 ## **My VGA Design Edit**
-Introduce your own design idea. Consider how complex/achievabble this might be or otherwise. Reference any research you do online (use hyperlinks).
+My final design is to have like a car moving across a road left to right and then when it reaches the right side it comes out the left side and continues forever. I don't think it is immensly complex and seems quite doable. I already have code that might work, I haven't had a chance to test it on the board yet. But before that I planned to make a villager face pixel art so for now I'll do this on that since I know it works. 
+
 ### **Code Adaptation**
-Briefly show how you changed the template code to display a different image. Demonstrate your understanding. Guideline: 1-2 short paragraphs.
+At first I messed around with the colour stripes code and changed the rows and coloumns to see what that would do. And I got the following two images as a result:
+<img width="2211" height="1659" alt="image" src="https://github.com/user-attachments/assets/804a77d1-2898-4ff1-a899-252abd8fe3f0" />
+<img width="2195" height="1646" alt="image" src="https://github.com/user-attachments/assets/4b986d8e-bf50-4fdb-8fbd-30021ed08284" />
+Then over the mid term, I tried to find a way to get the output of my verilog code displayed, and I came across the verilogVGA by Benjamin Otto on VS code. It's not the same as Vivado, and you have the change the template code a decent bit to get it to work but it does show you the display. At first I thought it only did static images but I found out recently that it does have support for moving images. But using the extension I figured out how to manipulate the pixels further by making some flags.
+<img width="433" height="110" alt="image" src="https://github.com/user-attachments/assets/14d19b8d-ae9e-4c7e-b757-a05fa3aabbe1" />
+<img width="1000" height="828" alt="image" src="https://github.com/user-attachments/assets/fbce4d3b-6f97-49ea-9b44-55eeedf4d93a" />
+For the villager face, I got an of the villager face on minecraft and drew out a 640 x 480 box and mapped each pixel to a box on the vga screen.
+<img width="2853" height="2140" alt="image" src="https://github.com/user-attachments/assets/eda8c8d6-4182-4260-9b31-c0508af52b55" />
+
+
+
 ### **Simulation**
 Show how you simulated your own design. Are there any things to note? Demonstrate your understanding. Add a screenshot. Guideline: 1-2 short paragraphs.
 ### **Synthesis**
 Describe the synthesis & implementation outputs for your design, are there any differences to that of the original design? Guideline 1-2 short paragraphs.
 ### **Demonstration**
 If you get your own design working on the Basys3 board, take a picture! Guideline: 1-2 sentences.
+<img width="2060" height="1545" alt="image" src="https://github.com/user-attachments/assets/af78a474-fcfe-41ec-9b1c-69644cf76697" />
 
-## **More Markdown Basics**
-This is a paragraph. Add an empty line to start a new paragraph.
 
-Font can be emphasised as *Italic* or **Bold**.
 
-Code can be highlighted by using `backticks`.
 
-Hyperlinks look like this: [GitHub Help](https://help.github.com/).
+## References
+[AMD simulation tutorial](https://docs.amd.com/v/u/2018.2-English/ug937-vivado-design-suite-simulation-tutorial)
 
-A bullet list can be rendered as follows:
-- vectors
-- algorithms
-- iterators
+[Video on how to do simulation in Vivado](https://www.youtube.com/watch?v=sHVuhg0ttZQ)
 
-Images can be added by uploading them to the repository in a /docs/assets/images folder, and then rendering using HTML via githubusercontent.com as shown in the example below.
+[FPGA design flow](https://medium.com/@ahe24mobile/the-fpga-design-flow-explained-from-rtl-to-bitstream-290a3b983e4e)
 
-<img src="https://raw.githubusercontent.com/melgineer/fpga-vga-verilog/main/docs/assets/images/VGAPrjSrcs.png">
+[Synthesis](https://www.synopsys.com/glossary/what-is-synthesis.html)
+
+[Minecraft Villager face](https://minecraftfaces.com/villager-face/) 
+
+[Verilod code extenstion on vs code](https://marketplace.visualstudio.com/items?itemName=otjamin.verilogvga)
