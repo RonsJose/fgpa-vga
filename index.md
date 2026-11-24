@@ -85,7 +85,7 @@ At first I messed around with the colour stripes code and changed the rows and c
 Then over the mid term, I tried to find a way to get the output of my verilog code displayed, and I came across the verilogVGA by Benjamin Otto on VS code. It's not the same as Vivado, and you have the change the template code a decent bit to get it to work but it does show you the display. At first I thought it only did static images but I found out recently that it does have support for moving images. But using the extension I figured out how to manipulate the pixels further by making some flags.
 <img width="433" height="110" alt="image" src="https://github.com/user-attachments/assets/14d19b8d-ae9e-4c7e-b757-a05fa3aabbe1" />
 <img width="1000" height="828" alt="image" src="https://github.com/user-attachments/assets/fbce4d3b-6f97-49ea-9b44-55eeedf4d93a" />
-For the villager face, I got an of the villager face on minecraft and drew out a 640 x 480 box and mapped each pixel to a box on the vga screen.
+For the villager face, I got an of the villager face on minecraft and drew out a 640 x 480 box and mapped each pixel to a box on the vga screen with what colour I was going to make that area..
 <img width="2853" height="2140" alt="image" src="https://github.com/user-attachments/assets/eda8c8d6-4182-4260-9b31-c0508af52b55" />
 
 
@@ -98,6 +98,184 @@ Describe the synthesis & implementation outputs for your design, are there any d
 If you get your own design working on the Basys3 board, take a picture! Guideline: 1-2 sentences.
 <img width="2060" height="1545" alt="image" src="https://github.com/user-attachments/assets/af78a474-fcfe-41ec-9b1c-69644cf76697" />
 
+The code for the villager face screen:
+````verilog
+module VillagerFace #(
+    parameter COUNTER_WIDTH = 32, 
+    parameter COUNT_FROM = 0,
+    parameter COUNT_TO = 32'b1 << 26,
+    parameter COUNT_RESET = 32'b1 << 27)
+    (input clk, rst,
+     input [10:0] row, col, 
+     output [3:0] red, green, blue);
+
+reg [3:0] red_reg, green_reg, blue_reg, red_next, green_next, blue_next;
+
+// Next state & output logic state  machine 
+always@* begin
+   if((row >= 11'd0 && row <11'd180) && (col >= 11'd0 && col <11'd80)) begin
+      red_next   <= 4'b1111;
+      green_next <= 4'b1100;
+      blue_next  <= 4'b1010;
+   end
+   else  if((row >= 11'd0 && row <11'd180) && (col>=11'd80 && col<11'd160)) begin
+      red_next   <= 4'b1111;
+      green_next <= 4'b1101;
+      blue_next  <= 4'b1011;;
+   end
+   else if((row >= 11'd0 && row < 11'd60) && (col>=11'd160 && col<11'd240)) begin
+      red_next   <= 4'b1111;
+      green_next <= 4'b1100;
+      blue_next  <= 4'b1010;
+   end
+   else if((row >= 11'd60 && row < 11'd180) && (col>=11'd160 && col<11'd240)) begin
+    red_next   <= 4'b1111;
+    green_next <= 4'b1101;
+    blue_next  <= 4'b1011;
+   end
+     else if((row >= 11'd0 && row < 11'd180) && (col>=11'd240 && col<11'd480)) begin
+    red_next   <= 4'b1111;
+    green_next <= 4'b1101;
+    blue_next  <= 4'b1011;
+   end
+   else if((row >= 11'd0 && row < 11'd180) && (col>=11'd480 && col<11'd560)) begin
+red_next   <= 4'b1111;
+green_next <= 4'b1100;
+blue_next  <= 4'b1010;
+   end
+   else if((row >= 11'd0 && row < 11'd240) && (col>=11'd560 && col<11'd640)) begin
+red_next   <= 4'b1111;
+green_next <= 4'b1101;
+blue_next  <= 4'b1011;
+   end
+   else if((row >= 11'd180 && row < 11'd240) && (col>=11'd0 && col<11'd80)) begin
+   red_next   <= 4'b1111;
+green_next <= 4'b1101;
+blue_next  <= 4'b1011;
+   end
+   else if((row >= 11'd180 && row < 11'd240) && (col>=11'd80 && col<11'd560)) begin
+red_next   <= 4'b0110;
+green_next <= 4'b0100;
+blue_next  <= 4'b0010;
+   end 
+else if((row >= 11'd240 && row < 11'd300) && (col>=11'd0 && col<11'd80)) begin
+red_next   <= 4'b1111;
+green_next <= 4'b1100;
+blue_next  <= 4'b1010;
+   end 
+   else if((row >= 11'd240 && row < 11'd300) && (col>=11'd80 && col<11'd160)) begin
+red_next   <= 4'b1111;
+green_next <= 4'b1111;
+blue_next  <= 4'b1111;
+   end 
+   else if((row >= 11'd240 && row < 11'd300) && (col>=11'd160 && col<11'd240)) begin
+red_next   <= 4'b0101;
+green_next <= 4'b1100;
+blue_next  <= 4'b0111;
+   end 
+   else if((row >= 11'd240 && row < 11'd300) && (col>=11'd240 && col<11'd400)) begin
+red_next   <= 4'b1111;
+green_next <= 4'b1101;
+blue_next  <= 4'b1011;
+   end 
+   else if((row >= 11'd240 && row < 11'd300) && (col>=11'd400 && col<11'd480)) begin
+red_next   <= 4'b0101;
+green_next <= 4'b1100;
+blue_next  <= 4'b0111;
+   end
+   else if((row >= 11'd240 && row < 11'd300) && (col>=11'd480 && col<11'd560)) begin
+red_next   <= 4'b1111;
+green_next <= 4'b1111;
+blue_next  <= 4'b1111;
+   end 
+ else if((row >= 11'd240 && row < 11'd300) && (col>=11'd560 && col<11'd640)) begin
+red_next   <= 4'b1111;
+green_next <= 4'b1100;
+blue_next  <= 4'b1010;
+   end 
+ else if((row >= 11'd300 && row < 11'd480) && (col>=11'd0 && col<11'd80)) begin
+red_next   <= 4'b1011;
+green_next <= 4'b1000;
+blue_next  <= 4'b0101;
+   end 
+  else if((row >= 11'd300 && row < 11'd480) && (col>=11'd80 && col<11'd160)) begin
+red_next   <= 4'b1111;
+green_next <= 4'b1100;
+blue_next  <= 4'b1010;
+   end 
+  else if((row >= 11'd300 && row < 11'd360) && (col>=11'd160 && col<11'd240)) begin
+red_next   <= 4'b1111;
+green_next <= 4'b1101;
+blue_next  <= 4'b1011;
+   end 
+  else if((row >= 11'd360 && row < 11'd420) && (col>=11'd160 && col<11'd240)) begin
+red_next   <= 4'b0110;
+green_next <= 4'b0100;
+blue_next  <= 4'b0011;
+   end 
+  else if((row >= 11'd420 && row < 11'd480) && (col>=11'd160 && col<11'd240)) begin
+red_next   <= 4'b1111;
+green_next <= 4'b1100;
+blue_next  <= 4'b1010;
+   end 
+  else if((row >= 11'd300 && row < 11'd480) && (col>=11'd240 && col<11'd400)) begin
+red_next   <= 4'b1011;
+green_next <= 4'b1000;
+blue_next  <= 4'b0101;
+   end 
+  else if((row >= 11'd300 && row < 11'd360) && (col>=11'd400 && col<11'd480)) begin
+red_next   <= 4'b1111;
+green_next <= 4'b1101;
+blue_next  <= 4'b1011;
+   end 
+  else if((row >= 11'd360 && row < 11'd420) && (col>=11'd400 && col<11'd480)) begin
+red_next   <= 4'b0110;
+green_next <= 4'b0100;
+blue_next  <= 4'b0011;
+   end 
+  else if((row >= 11'd420 && row < 11'd480) && (col>=11'd400 && col<11'd480)) begin
+red_next   <= 4'b1111;
+green_next <= 4'b1100;
+blue_next  <= 4'b1010;
+   end 
+   else if((row >= 11'd300 && row < 11'd480) && (col>=11'd480 && col<11'd560)) begin
+red_next   <= 4'b1111;
+green_next <= 4'b1100;
+blue_next  <= 4'b1010;
+   end 
+   else if((row >= 11'd300 && row < 11'd480) && (col>=11'd560 && col<11'd640)) begin
+red_next   <= 4'b1011;
+green_next <= 4'b1000;
+blue_next  <= 4'b0101;
+   end 
+   else begin
+      red_next   <= 4'b0000;
+      green_next <= 4'b0000;
+      blue_next  <= 4'b0000;
+   end
+end
+
+// Register RGB outputs    
+always@(posedge clk, posedge rst) begin
+    if(rst == 1'b1) begin
+        red_reg   <= 4'b0000;
+        green_reg <= 4'b0000;
+        blue_reg  <= 4'b0000;
+    end
+    else begin
+        red_reg   <= red_next;
+        green_reg <= green_next;
+        blue_reg  <= blue_next;
+    end
+end
+
+// Assign output wires
+assign red = red_reg;
+assign green = green_reg;
+assign blue = blue_reg;
+
+endmodule
+````
 
 
 
