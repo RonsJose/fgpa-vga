@@ -103,8 +103,6 @@ Because I missed one the labs for an event, I didn't get the chance to test my f
     <img width="400" height="300" alt="image" src="https://github.com/user-attachments/assets/0d8931d7-a763-4365-9677-b31720feb29a" />
 </p>
 
-For the villager face, I got an of the villager face on minecraft and drew out a 640 x 480 box and mapped each pixel to a box on the vga screen with what colour I was going to make that area.
-
 For the villager face from Minecraft, I used a picture that had each pixel of the villager clearly visable and divided it into coloumns and rows. Then I sketched out an 8x8 square and mapped it to the dimenions of a VGA display 640x480 and decided what color each pixel was going to be.
 <p align="center">
     <img width="800" height="525" alt="image" src="https://github.com/user-attachments/assets/eda8c8d6-4182-4260-9b31-c0508af52b55" />
