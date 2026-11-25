@@ -145,12 +145,22 @@ Describe the synthesis & implementation outputs for your design, are there any d
 The synthesis takes the netlist from the RTL analysis and creates the FPGA netlist specific for the basys3. The outputs of my design are the same as the original although the process is different. The output for both are the rgb values, red, green & blue. 
 
 <p align="center">
-Original design : My design
+Original design synthesis : My design synthesis
 </p>
 <p float="left">
 <img width="500" height="300" alt="image" src="https://github.com/user-attachments/assets/d0a47f2c-abab-4d3c-a498-926c72e0d82e" />
 <img width="500" height="300" alt="image" src="https://github.com/user-attachments/assets/a1127fd3-9dcc-4746-9aac-a367c4eb7f17" />
 </p>
+
+<p align="center">
+Original design implementation : My design implementation
+</p>
+<p float="left">
+<img width="500" height="300" alt="image" src="https://github.com/user-attachments/assets/a7a51607-ad15-4fa0-92fc-5dd971065f29" />
+<img width="500" height="300" alt="image" src="https://github.com/user-attachments/assets/3101bd68-f804-45bf-90c4-d42680027b64" />
+</p>
+
+
 
 ### **Demonstration**
 If you get your own design working on the Basys3 board, take a picture! Guideline: 1-2 sentences.
