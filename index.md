@@ -137,10 +137,20 @@ Just like in the demo reset is high at the start to let the registers and counte
 ### **RTL analysis**
 RTL analysis basically checks for any kind of errors through your verilog code syntax, compliation and design rules. It then translates the verilog code into a netlist of gates and creates a viewable schematic. This is not FGPA tecnology mapping, it's not for the board your using specifically it is just for the structural and logical verification of your design.
 
-<img width="1832" height="713" alt="Screenshot 2026-11-25 011849" src="https://github.com/user-attachments/assets/a92c6f2d-fdb8-4f6e-aff0-44faa5322433" />
+<img width="1072" height="427" alt="image" src="https://github.com/user-attachments/assets/b5208e28-ecbb-4491-8ee6-c12518689fa8" />
+
 
 ### **Synthesis**
 Describe the synthesis & implementation outputs for your design, are there any differences to that of the original design? Guideline 1-2 short paragraphs.
+The synthesis takes the netlist from the RTL analysis and creates the FPGA netlist specific for the basys3. The outputs of my design are the same as the original although the process is different. The output for both are the rgb values, red, green & blue. 
+
+<p align="center">
+Original design : My design
+</p>
+<p float="left">
+<img width="500" height="300" alt="image" src="https://github.com/user-attachments/assets/d0a47f2c-abab-4d3c-a498-926c72e0d82e" />
+<img width="500" height="300" alt="image" src="https://github.com/user-attachments/assets/a1127fd3-9dcc-4746-9aac-a367c4eb7f17" />
+</p>
 
 ### **Demonstration**
 If you get your own design working on the Basys3 board, take a picture! Guideline: 1-2 sentences.
