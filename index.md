@@ -199,9 +199,9 @@ module vga_car_scene
     reg [9:0] car_x = 10'd0;
     reg vsync_prev;
 ```
+On positive edges of the clock cycle, this code check if reset has been set and if it has reset the position of the car back to 0(the very left side), if not save the current verison as the previous verison of vsync this does falling edge detection. The if statement checks to see if vysnc has changed, it does this by anding the previous vysnc with the opposite of the current one if it is different there is a negative clock edge, this is done to check if a new frame has begun. If there is a new frame we check the position of the car horizontally and if it is greather than the range of the vga resolution (640) then set the position of the car back to 0 which will bring it back to the left side. Otherwise move the car forward by 3 pixels each time to make the car move forward.
 
 ```verilog
-
     always @(posedge clk) begin
         if (rst) begin
             car_x <= 10'd0;
@@ -217,17 +217,20 @@ module vga_car_scene
         end
     end
 ```
+The first line is basicly an if statement condensed into one line using a ternany operator to check the position of where the car started compared to where the current pixel is. This is a very important line that makes it so that when the right side of the car hits the border the entire card doesnt get set to the start only the pixels that go beyond the 640 mark, thus a warping effect.
+
+The second line is the area in which the car is, uses the rel_x positon to determine 
 
 ```verilog
-    
     wire [10:0] rel_x = (col >= car_x) ? (col - car_x) : (col + 11'd640 - car_x);
     
     wire is_car = (rel_x < CAR_W) && (row >= CAR_Y) && (row < CAR_Y + CAR_H);
 
    
     wire is_road = (row >= 10'd320);
+```
 
-    
+```verilog
     always @(*) begin
         if (is_car) begin
                 red_next   <= 4'b1111;
@@ -245,7 +248,9 @@ module vga_car_scene
                 blue_next  <= 4'b1111;
         end
     end
+```
 
+```verilog
 always@(posedge clk, posedge rst) begin
     if(rst == 1'b1) begin
         red_reg   <= 4'b0000;
