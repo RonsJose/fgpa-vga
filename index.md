@@ -103,6 +103,31 @@ For the villager face from Minecraft, I used a picture that had each pixel of th
 
 ### **Simulation**
 I simulated my own design by commenting out the color stripes module and replacing it with my module for the car scene in the testbench. I also changed the params to a smaller range so that it is easier to see the changes through the waveform.
+```verilog
+parameter HDISP = 6;
+parameter VDISP = 2;
+parameter HFP = 1;
+parameter VFP = 1;
+parameter HPW = 1;
+parameter VPW = 1;
+parameter HLIM = 10;
+parameter VLIM = 6;
+parameter COUNTER_WIDTH = 3;
+parameter COUNT_FROM = 0;
+parameter COUNT_TO = 3;
+parameter COUNT_RESET = 3;
+parameter T = 10;
+
+//ColourStripes #(.COUNTER_WIDTH(COUNTER_WIDTH), .COUNT_TO(COUNT_TO),
+//              .COUNT_FROM(COUNT_FROM), .COUNT_RESET(COUNT_RESET)) i_colour_stripes
+//   (.clk(clk), .rst(rst), .row(row), .col(col), .red(red), .green(green), .blue(blue));
+
+vga_car_scene #() i_vga_car_scene
+    (.clk(clk), .rst(rst), .vsync(vsync), .row(row), .col(col), .red(red), .green(green), .blue(blue)
+    );
+    
+```
+
 
 <p align="center">
     <img width="830" height="325" alt="image" src="https://github.com/user-attachments/assets/201bb42b-272e-40c0-9f7f-57e7a7a3ff3f" />
