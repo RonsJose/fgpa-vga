@@ -14,7 +14,7 @@ Create a new RTL project and add the source, contraints, and simulation files th
 
 Next we need to add a clock by going into IP Catalog > Foundational elements > clock and reset > Clocking wizard. And we need to set this to 25 MHz.
 
-<img width="1918" height="1031" alt="image" src="https://github.com/user-attachments/assets/40a9cc45-b419-419a-b5da-4058bc2c2a5d" />
+<img width="800" height="400" alt="image" src="https://github.com/user-attachments/assets/40a9cc45-b419-419a-b5da-4058bc2c2a5d" />
 
 
 ### **Template Code**
@@ -59,7 +59,7 @@ Simulation is used to test the hardware logic in software before testing in the 
  ```
 Then we run a behavorial simulation which executes the verilog RTL logic over a set amount of time that you can choose, and lets you see the waveform without ever having to use a physical board. I ran the behavioral simulation for 10us with a clock period of 10 ns and it provided me with the waveform below:
 
-<img width="1057" height="374" alt="image" src="https://github.com/user-attachments/assets/91c314d9-39d3-41e3-a52f-e920c87834e1" />
+<img width="800" height="374" alt="image" src="https://github.com/user-attachments/assets/91c314d9-39d3-41e3-a52f-e920c87834e1" />
 
 You can see at the start that the reset is high for 20 ns this is to make sure all the counters and registers initialize properly without starting with unknown values. While reset is high the vid_on flag is low, when reset goes low the vid_on flag goes high and remains active for all 640 pixels and you can see the red, geen, and blue rgb values go through all 8 colours in the stripes. Then when the beam goes past 640 pixels into the horizontal blanking area vid_on goes low, and you can see hsync go low after it has reached the limit and go back to high and the counter for which row it is increase from 0 to 1. Vsync doesnt go low because it only resets after each frame and 10 us is not enough time for that.
 
@@ -73,7 +73,8 @@ I'll describe it in more detail when going over my designs synthesis but the sim
 
 ### **Demonstration**
 
-I forget to take a picture, but I'll take one of the demo one later. Basicly you can see all the 8 colour stripes on the monitor that are being output from the basys board, and the reset sets the screen to black.
+<img width="800" height="600" alt="20261125_142358" src="https://github.com/user-attachments/assets/620ed9c7-6f9e-44ca-bda3-b5898c860ec5" />
+ You can see all the 8 colour stripes on the monitor that are being output from the basys board, and the reset sets the screen to black.
 
 
 ## **My VGA Design Edit**
@@ -81,21 +82,21 @@ My final design is to have like a car moving across a road left to right and the
 
 ### **Code Adaptation**
 At first I messed around with the colour stripes code and changed the rows and coloumns to see what that would do. And I got the following two images as a result:
-<img width="2211" height="1659" alt="image" src="https://github.com/user-attachments/assets/804a77d1-2898-4ff1-a899-252abd8fe3f0" />
-<img width="2195" height="1646" alt="image" src="https://github.com/user-attachments/assets/4b986d8e-bf50-4fdb-8fbd-30021ed08284" />
+<img width="800" height="600" alt="image" src="https://github.com/user-attachments/assets/804a77d1-2898-4ff1-a899-252abd8fe3f0" />
+<img width="800" height="600" alt="image" src="https://github.com/user-attachments/assets/4b986d8e-bf50-4fdb-8fbd-30021ed08284" />
 Then over the mid term, I tried to find a way to get the output of my verilog code displayed, and I came across the verilogVGA by Benjamin Otto on VS code. It's not the same as Vivado, and you have the change the template code a decent bit to get it to work but it does show you the display. At first I thought it only did static images but I found out recently that it does have support for moving images. But using the extension I figured out how to manipulate the pixels further by making some flags.
 
 <p align="center">
-    <img width="433" height="110" alt="image" src="https://github.com/user-attachments/assets/14d19b8d-ae9e-4c7e-b757-a05fa3aabbe1" />
+    <img width="800" height="110" alt="image" src="https://github.com/user-attachments/assets/14d19b8d-ae9e-4c7e-b757-a05fa3aabbe1" />
 </p>
 <p align="center">
-    <img width="500" height="300" alt="image" src="https://github.com/user-attachments/assets/fbce4d3b-6f97-49ea-9b44-55eeedf4d93a" />
+    <img width="800" height="300" alt="image" src="https://github.com/user-attachments/assets/fbce4d3b-6f97-49ea-9b44-55eeedf4d93a" />
 </p>
 For the villager face, I got an of the villager face on minecraft and drew out a 640 x 480 box and mapped each pixel to a box on the vga screen with what colour I was going to make that area.
 
 For the villager face from Minecraft, I used a picture that had each pixel of the villager clearly visable and divided it into coloumns and rows. Then I sketched out an 8x8 square and mapped it to the dimenions of a VGA display 640x480 and decided what color each pixel was going to be.
 <p align="center">
-    <img width="853" height="525" alt="image" src="https://github.com/user-attachments/assets/eda8c8d6-4182-4260-9b31-c0508af52b55" />
+    <img width="800" height="525" alt="image" src="https://github.com/user-attachments/assets/eda8c8d6-4182-4260-9b31-c0508af52b55" />
 </p>
 
 
@@ -130,14 +131,14 @@ vga_car_scene #() i_vga_car_scene
 
 Just like in the demo reset is high at the start to let the registers and counters initialize without random values. You can see when vsync goes low indicating that a frame has ended and it's going onto the next one that the car_x variable (the horizontal position of the car) increases each time. The colors don't change because of the limited size of the parameters to show the changes in vsync and car_x in the waveform. Because of the limited parameters for the testbench, vid_on is low during most of the waveform. This is because there is only 2 rows that are active, the others are for vertical blanking which is why vid_on is only high for two rows and low for the rest.
 <p align="center">
-    <img width="1067" height="330" alt="image" src="https://github.com/user-attachments/assets/fc287b7f-ef3a-4e6b-878d-9a3ee683cb9b" />
+    <img width="800" height="330" alt="image" src="https://github.com/user-attachments/assets/fc287b7f-ef3a-4e6b-878d-9a3ee683cb9b" />
 </p>
 
 
 ### **RTL analysis**
 RTL analysis basically checks for any kind of errors through your verilog code syntax, compliation and design rules. It then translates the verilog code into a netlist of gates and creates a viewable schematic. This is not FGPA tecnology mapping, it's not for the board your using specifically it is just for the structural and logical verification of your design.
 
-<img width="1072" height="427" alt="image" src="https://github.com/user-attachments/assets/b5208e28-ecbb-4491-8ee6-c12518689fa8" />
+<img width="800" height="427" alt="image" src="https://github.com/user-attachments/assets/b5208e28-ecbb-4491-8ee6-c12518689fa8" />
 
 
 ### **Synthesis**
@@ -148,23 +149,28 @@ The synthesis takes the netlist from the RTL analysis and creates the FPGA netli
 Original design synthesis : My design synthesis
 </p>
 <p float="left">
-<img width="500" height="300" alt="image" src="https://github.com/user-attachments/assets/d0a47f2c-abab-4d3c-a498-926c72e0d82e" />
-<img width="500" height="300" alt="image" src="https://github.com/user-attachments/assets/a1127fd3-9dcc-4746-9aac-a367c4eb7f17" />
+<img width="400" height="200" alt="image" src="https://github.com/user-attachments/assets/d0a47f2c-abab-4d3c-a498-926c72e0d82e" />
+<img width="400" height="200" alt="image" src="https://github.com/user-attachments/assets/a1127fd3-9dcc-4746-9aac-a367c4eb7f17" />
 </p>
 
 <p align="center">
 Original design implementation : My design implementation
 </p>
 <p float="left">
-<img width="500" height="300" alt="image" src="https://github.com/user-attachments/assets/a7a51607-ad15-4fa0-92fc-5dd971065f29" />
-<img width="500" height="300" alt="image" src="https://github.com/user-attachments/assets/3101bd68-f804-45bf-90c4-d42680027b64" />
+<img width="400" height="200" alt="image" src="https://github.com/user-attachments/assets/a7a51607-ad15-4fa0-92fc-5dd971065f29" />
+<img width="400" height="200" alt="image" src="https://github.com/user-attachments/assets/3101bd68-f804-45bf-90c4-d42680027b64" />
 </p>
 
 
 
 ### **Demonstration**
 If you get your own design working on the Basys3 board, take a picture! Guideline: 1-2 sentences.
-<img width="2060" height="1545" alt="image" src="https://github.com/user-attachments/assets/af78a474-fcfe-41ec-9b1c-69644cf76697" />
+<p float="left">
+<img width="800" height="500" alt="image" src="https://github.com/user-attachments/assets/af78a474-fcfe-41ec-9b1c-69644cf76697" />
+<img width="260" height="100" alt="20261125_141857" src="https://github.com/user-attachments/assets/36bf0c9e-30c8-4715-bfbf-1ba7da62c2e7" />
+<img width="260" height="100" alt="20261125_141900" src="https://github.com/user-attachments/assets/852747b6-2e23-4ffa-a8a3-5afb8a0db4a1" />
+<img width="260" height="100" alt="20261125_141902" src="https://github.com/user-attachments/assets/4680a954-e006-4840-8dcb-91a5b710fb64" />
+</p>
 
 The code for the villager face screen:
 ````verilog
