@@ -83,8 +83,8 @@ My final design is to have like a car moving across a road left to right and the
 ### **Code Adaptation**
 At first I messed around with the colour stripes code and changed the rows and coloumns to see what that would do. And I got the following two images as a result:
 <div style="display: flex; gap: 1px;">
-    <img width="399" height="600" alt="image" src="https://github.com/user-attachments/assets/804a77d1-2898-4ff1-a899-252abd8fe3f0" style="width: 399px;"/>
-    <img width="399" height="600" alt="image" src="https://github.com/user-attachments/assets/4b986d8e-bf50-4fdb-8fbd-30021ed08284" style="width: 399px;"/>
+    <img width="399" height="400" alt="image" src="https://github.com/user-attachments/assets/804a77d1-2898-4ff1-a899-252abd8fe3f0" style="width: 399px;"/>
+    <img width="399" height="400" alt="image" src="https://github.com/user-attachments/assets/4b986d8e-bf50-4fdb-8fbd-30021ed08284" style="width: 399px;"/>
 </div>
 
 
