@@ -144,7 +144,7 @@ RTL analysis basically checks for any kind of errors through your verilog code s
 
 <img width="800" height="427" alt="image" src="https://github.com/user-attachments/assets/b5208e28-ecbb-4491-8ee6-c12518689fa8" />
 
-<img width="800" height="427" alt="image" src="https://github.com/user-attachments/assets/4543cc08-37b8-4e8d-a306-387dfb1c27ad" />
+<img width="800" height="200" alt="image" src="https://github.com/user-attachments/assets/4543cc08-37b8-4e8d-a306-387dfb1c27ad" />
 
 
 ### **Synthesis**
