@@ -78,7 +78,8 @@ I'll describe it in more detail when going over my designs synthesis but the sim
 
 
 ## **My VGA Design Edit**
-My final design is to have like a car moving across a road left to right and then when it reaches the right side it comes out the left side and continues forever. I don't think it is immensly complex and seems quite doable. I already have code that might work, I haven't had a chance to test it on the board yet. But before that I planned to make a villager face pixel art so for now I'll do this on that since I know it works. 
+I want to make a car that endlessly goes across the screen, I don't think it will be that hard. It only has one moving component that only moves on one plane is a single direction. I think it is quite doable. [Video on motion and collision detection in vga](https://www.youtube.com/watch?v=PDgg1SN8g6s&t=1s)
+
 
 ### **Code Adaptation**
 At first I messed around with the colour stripes code and changed the rows and coloumns to see what that would do. And I got the following two images as a result:
@@ -88,7 +89,7 @@ At first I messed around with the colour stripes code and changed the rows and c
 </div>
 
 
-Then over the mid term, I tried to find a way to get the output of my verilog code displayed, and I came across the verilogVGA by Benjamin Otto on VS code. It's not the same as Vivado, and you have the change the template code a decent bit to get it to work but it does show you the display. At first I thought it only did static images but I found out recently that it does have support for moving images. But using the extension I figured out how to manipulate the pixels further by making some flags.
+Then over the mid term, I tried to find a way to get the output of my verilog code displayed, and I came across the verilogVGA by Benjamin Otto on VS code. It's not the same as Vivado, and you have the change the template code a decent bit to get it to work but it does show you the display. At first I thought it only did static images but I found out recently that it does have support for moving images. By using the extension I figured out how to manipulate the pixels further by making some flags.
 
 <p align="center">
     <img width="400" height="110" alt="image" src="https://github.com/user-attachments/assets/14d19b8d-ae9e-4c7e-b757-a05fa3aabbe1" />
@@ -96,13 +97,20 @@ Then over the mid term, I tried to find a way to get the output of my verilog co
 <p align="center">
     <img width="400" height="300" alt="image" src="https://github.com/user-attachments/assets/fbce4d3b-6f97-49ea-9b44-55eeedf4d93a" />
 </p>
+
+Because I missed one the labs for an event, I didn't get the chance to test my final design on the board. So I adapted the code to work on the vs code extenstion. The colors are different from my final one on the board because the extension version uses 12 bit color opposed to the 4 bit on the board.
+<p align="center">
+    <img width="400" height="300" alt="image" src="https://github.com/user-attachments/assets/0d8931d7-a763-4365-9677-b31720feb29a" />
+</p>
+
 For the villager face, I got an of the villager face on minecraft and drew out a 640 x 480 box and mapped each pixel to a box on the vga screen with what colour I was going to make that area.
 
 For the villager face from Minecraft, I used a picture that had each pixel of the villager clearly visable and divided it into coloumns and rows. Then I sketched out an 8x8 square and mapped it to the dimenions of a VGA display 640x480 and decided what color each pixel was going to be.
 <p align="center">
     <img width="800" height="525" alt="image" src="https://github.com/user-attachments/assets/eda8c8d6-4182-4260-9b31-c0508af52b55" />
 </p>
-
+This is what it looks like all done.
+<img width="800" height="500" alt="image" src="https://github.com/user-attachments/assets/af78a474-fcfe-41ec-9b1c-69644cf76697" />
 
 
 
@@ -144,6 +152,7 @@ RTL analysis basically checks for any kind of errors through your verilog code s
 
 <img width="800" height="427" alt="image" src="https://github.com/user-attachments/assets/b5208e28-ecbb-4491-8ee6-c12518689fa8" />
 
+You can see the different gates here, and, add, sub, greather than, less than, multiplexers, registers, and inverters. These all represent the different operations in the code but it has to be run on physical hardware and this lets us see all the gates that are being used.
 <img width="800" height="191" alt="image" src="https://github.com/user-attachments/assets/98d4f91a-40e4-4877-9b61-2092f8cc04d9" />
 
 
@@ -169,9 +178,8 @@ Original design implementation : My design implementation
 
 
 ### **Demonstration**
-I've got pictures of two different modules in here, one of the pictures is of the villager face. The other pictures are of the car moving across the street with the sky in the background.
+These are the pictures of the car moving across the screen, there is a sky, a road, and a red rectangle that I call the car. You can see the warp effect on the second picture where even though it reached the end of the screen, not all of it want sent to the other side immediately.
 <p float="left">
-<img width="800" height="500" alt="image" src="https://github.com/user-attachments/assets/af78a474-fcfe-41ec-9b1c-69644cf76697" />
 <img width="800" height="500" alt="20261125_141857" src="https://github.com/user-attachments/assets/36bf0c9e-30c8-4715-bfbf-1ba7da62c2e7" />
 <img width="800" height="500" alt="20261125_141900" src="https://github.com/user-attachments/assets/852747b6-2e23-4ffa-a8a3-5afb8a0db4a1" />
 <img width="800" height="500" alt="20261125_141902" src="https://github.com/user-attachments/assets/4680a954-e006-4840-8dcb-91a5b710fb64" />
