@@ -146,7 +146,6 @@ RTL analysis basically checks for any kind of errors through your verilog code s
 
 
 ### **Synthesis**
-Describe the synthesis & implementation outputs for your design, are there any differences to that of the original design? Guideline 1-2 short paragraphs.
 The synthesis takes the netlist from the RTL analysis and creates the FPGA netlist specific for the basys3. The outputs of my design are the same as the original although the process is different. The output for both are the rgb values, red, green & blue. 
 
 <p align="center">
@@ -176,7 +175,12 @@ If you get your own design working on the Basys3 board, take a picture! Guidelin
 <img width="800" height="500" alt="20261125_141902" src="https://github.com/user-attachments/assets/4680a954-e006-4840-8dcb-91a5b710fb64" />
 </p>
 
-Code for moving block:
+
+### **Code**
+
+This part of the code is mostly the same as the ColourStripes module, the key differences being I removed the parameters that were used for ColourCycle, added vsync as an input.
+I made local parameters to include the dimensions of the car, I made the variable that stores the horizontal location and set it to 0 to make sure it starts on the left side. I also made the variable that stores the previous state of vsync to detect changes.
+
 ```verilog
 `timescale 1ns / 1ps
 
@@ -194,6 +198,9 @@ module vga_car_scene
 
     reg [9:0] car_x = 10'd0;
     reg vsync_prev;
+```
+
+```verilog
 
     always @(posedge clk) begin
         if (rst) begin
@@ -209,8 +216,9 @@ module vga_car_scene
             end
         end
     end
+```
 
-    
+```verilog
     
     wire [10:0] rel_x = (col >= car_x) ? (col - car_x) : (col + 11'd640 - car_x);
     
