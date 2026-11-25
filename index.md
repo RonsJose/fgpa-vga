@@ -144,6 +144,8 @@ RTL analysis basically checks for any kind of errors through your verilog code s
 
 <img width="800" height="427" alt="image" src="https://github.com/user-attachments/assets/b5208e28-ecbb-4491-8ee6-c12518689fa8" />
 
+<img width="800" height="427" alt="image" src="https://github.com/user-attachments/assets/4543cc08-37b8-4e8d-a306-387dfb1c27ad" />
+
 
 ### **Synthesis**
 The synthesis takes the netlist from the RTL analysis and creates the FPGA netlist specific for the basys3. The outputs of my design are the same as the original although the process is different. The output for both are the rgb values, red, green & blue. 
@@ -167,7 +169,7 @@ Original design implementation : My design implementation
 
 
 ### **Demonstration**
-If you get your own design working on the Basys3 board, take a picture! Guideline: 1-2 sentences.
+I've got pictures of two different modules in here, one of the pictures is of the villager face. The other pictures are of the car moving across the street with the sky in the background.
 <p float="left">
 <img width="800" height="500" alt="image" src="https://github.com/user-attachments/assets/af78a474-fcfe-41ec-9b1c-69644cf76697" />
 <img width="800" height="500" alt="20261125_141857" src="https://github.com/user-attachments/assets/36bf0c9e-30c8-4715-bfbf-1ba7da62c2e7" />
