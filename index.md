@@ -87,10 +87,10 @@ At first I messed around with the colour stripes code and changed the rows and c
 Then over the mid term, I tried to find a way to get the output of my verilog code displayed, and I came across the verilogVGA by Benjamin Otto on VS code. It's not the same as Vivado, and you have the change the template code a decent bit to get it to work but it does show you the display. At first I thought it only did static images but I found out recently that it does have support for moving images. But using the extension I figured out how to manipulate the pixels further by making some flags.
 
 <p align="center">
-    <img width="800" height="110" alt="image" src="https://github.com/user-attachments/assets/14d19b8d-ae9e-4c7e-b757-a05fa3aabbe1" />
+    <img width="400" height="110" alt="image" src="https://github.com/user-attachments/assets/14d19b8d-ae9e-4c7e-b757-a05fa3aabbe1" />
 </p>
 <p align="center">
-    <img width="800" height="300" alt="image" src="https://github.com/user-attachments/assets/fbce4d3b-6f97-49ea-9b44-55eeedf4d93a" />
+    <img width="400" height="300" alt="image" src="https://github.com/user-attachments/assets/fbce4d3b-6f97-49ea-9b44-55eeedf4d93a" />
 </p>
 For the villager face, I got an of the villager face on minecraft and drew out a 640 x 480 box and mapped each pixel to a box on the vga screen with what colour I was going to make that area.
 
@@ -149,16 +149,16 @@ The synthesis takes the netlist from the RTL analysis and creates the FPGA netli
 Original design synthesis : My design synthesis
 </p>
 <p float="left">
-<img width="400" height="200" alt="image" src="https://github.com/user-attachments/assets/d0a47f2c-abab-4d3c-a498-926c72e0d82e" />
-<img width="400" height="200" alt="image" src="https://github.com/user-attachments/assets/a1127fd3-9dcc-4746-9aac-a367c4eb7f17" />
+<img width="399" height="200" alt="image" src="https://github.com/user-attachments/assets/d0a47f2c-abab-4d3c-a498-926c72e0d82e" />
+<img width="399" height="200" alt="image" src="https://github.com/user-attachments/assets/a1127fd3-9dcc-4746-9aac-a367c4eb7f17" />
 </p>
 
 <p align="center">
 Original design implementation : My design implementation
 </p>
 <p float="left">
-<img width="400" height="200" alt="image" src="https://github.com/user-attachments/assets/a7a51607-ad15-4fa0-92fc-5dd971065f29" />
-<img width="400" height="200" alt="image" src="https://github.com/user-attachments/assets/3101bd68-f804-45bf-90c4-d42680027b64" />
+<img width="399" height="200" alt="image" src="https://github.com/user-attachments/assets/a7a51607-ad15-4fa0-92fc-5dd971065f29" />
+<img width="399" height="200" alt="image" src="https://github.com/user-attachments/assets/3101bd68-f804-45bf-90c4-d42680027b64" />
 </p>
 
 
@@ -167,9 +167,9 @@ Original design implementation : My design implementation
 If you get your own design working on the Basys3 board, take a picture! Guideline: 1-2 sentences.
 <p float="left">
 <img width="800" height="500" alt="image" src="https://github.com/user-attachments/assets/af78a474-fcfe-41ec-9b1c-69644cf76697" />
-<img width="260" height="100" alt="20261125_141857" src="https://github.com/user-attachments/assets/36bf0c9e-30c8-4715-bfbf-1ba7da62c2e7" />
-<img width="260" height="100" alt="20261125_141900" src="https://github.com/user-attachments/assets/852747b6-2e23-4ffa-a8a3-5afb8a0db4a1" />
-<img width="260" height="100" alt="20261125_141902" src="https://github.com/user-attachments/assets/4680a954-e006-4840-8dcb-91a5b710fb64" />
+<img width="800" height="500" alt="20261125_141857" src="https://github.com/user-attachments/assets/36bf0c9e-30c8-4715-bfbf-1ba7da62c2e7" />
+<img width="800" height="500" alt="20261125_141900" src="https://github.com/user-attachments/assets/852747b6-2e23-4ffa-a8a3-5afb8a0db4a1" />
+<img width="800" height="500" alt="20261125_141902" src="https://github.com/user-attachments/assets/4680a954-e006-4840-8dcb-91a5b710fb64" />
 </p>
 
 The code for the villager face screen:
