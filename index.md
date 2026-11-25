@@ -428,4 +428,8 @@ endmodule
 
 [Minecraft Villager face](https://minecraftfaces.com/villager-face/) 
 
-[Verilod code extenstion on vs code](https://marketplace.visualstudio.com/items?itemName=otjamin.verilogvga)
+[Verilog code extenstion on vs code](https://marketplace.visualstudio.com/items?itemName=otjamin.verilogvga)
+
+[Repo of a design that I looked at](https://github.com/FPGADude/Digital-Design/blob/main/FPGA%20Projects/VGA%20Projects/VGA%20Bouncing%20Square/top.v)
+
+[Video explaining that design ^ ](https://www.youtube.com/watch?v=PDgg1SN8g6s&t=1s)
