@@ -84,22 +84,35 @@ At first I messed around with the colour stripes code and changed the rows and c
 <img width="2211" height="1659" alt="image" src="https://github.com/user-attachments/assets/804a77d1-2898-4ff1-a899-252abd8fe3f0" />
 <img width="2195" height="1646" alt="image" src="https://github.com/user-attachments/assets/4b986d8e-bf50-4fdb-8fbd-30021ed08284" />
 Then over the mid term, I tried to find a way to get the output of my verilog code displayed, and I came across the verilogVGA by Benjamin Otto on VS code. It's not the same as Vivado, and you have the change the template code a decent bit to get it to work but it does show you the display. At first I thought it only did static images but I found out recently that it does have support for moving images. But using the extension I figured out how to manipulate the pixels further by making some flags.
-<img width="433" height="110" alt="image" src="https://github.com/user-attachments/assets/14d19b8d-ae9e-4c7e-b757-a05fa3aabbe1" />
-<img width="1000" height="828" alt="image" src="https://github.com/user-attachments/assets/fbce4d3b-6f97-49ea-9b44-55eeedf4d93a" />
-For the villager face, I got an of the villager face on minecraft and drew out a 640 x 480 box and mapped each pixel to a box on the vga screen with what colour I was going to make that area..
-<img width="2853" height="2140" alt="image" src="https://github.com/user-attachments/assets/eda8c8d6-4182-4260-9b31-c0508af52b55" />
+
+<p align="center">
+    <img width="433" height="110" alt="image" src="https://github.com/user-attachments/assets/14d19b8d-ae9e-4c7e-b757-a05fa3aabbe1" />
+</p>
+<p align="center">
+    <img width="500" height="300" alt="image" src="https://github.com/user-attachments/assets/fbce4d3b-6f97-49ea-9b44-55eeedf4d93a" />
+</p>
+For the villager face, I got an of the villager face on minecraft and drew out a 640 x 480 box and mapped each pixel to a box on the vga screen with what colour I was going to make that area.
+
+For the villager face from Minecraft, I used a picture that had each pixel of the villager clearly visable and divided it into coloumns and rows. Then I sketched out an 8x8 square and mapped it to the dimenions of a VGA display 640x480 and decided what color each pixel was going to be.
+<p align="center">
+    <img width="853" height="525" alt="image" src="https://github.com/user-attachments/assets/eda8c8d6-4182-4260-9b31-c0508af52b55" />
+</p>
+
 
 
 
 ### **Simulation**
-<img width="830" height="325" alt="image" src="https://github.com/user-attachments/assets/201bb42b-272e-40c0-9f7f-57e7a7a3ff3f" />
+I simulated my own design by commenting out the color stripes module and replacing it with my module for the car scene in the testbench. I also changed the params to a smaller range so that it is easier to see the changes through the waveform.
 
-Show how you simulated your own design. Are there any things to note? Demonstrate your understanding. Add a screenshot. Guideline: 1-2 short paragraphs.
-### **Synthesis**
+<p align="center">
+    <img width="830" height="325" alt="image" src="https://github.com/user-attachments/assets/201bb42b-272e-40c0-9f7f-57e7a7a3ff3f" />
+</p>
 
-#### **RTL analysis**
+
+### **RTL analysis**
 <img width="1832" height="713" alt="Screenshot 2026-11-25 011849" src="https://github.com/user-attachments/assets/a92c6f2d-fdb8-4f6e-aff0-44faa5322433" />
 
+### **Synthesis**
 Describe the synthesis & implementation outputs for your design, are there any differences to that of the original design? Guideline 1-2 short paragraphs.
 
 ### **Demonstration**
