@@ -69,7 +69,8 @@ You can see at the start that the reset is high for 20 ns this is to make sure a
  
 ### **Synthesis**
 
-I'll describe it in more detail when going over my designs synthesis but the simple explaination for synthesis and implementation is that it translates the verilog RTL design into a gate level netlist. Implementation takes the netlist from the synthesis and fits it to the actual physical board the basys 3 in our case.
+I'll describe it in more detail when going over my designs synthesis but the simple explaination for synthesis and implementation is that it translates the verilog RTL design into a gate level netlist specific for your FPGA board. Implementation takes the netlist from the synthesis and decides where and how to wire the gates on the board.
+
 ### **Demonstration**
 
 I forget to take a picture, but I'll take one of the demo one later. Basicly you can see all the 8 colour stripes on the monitor that are being output from the basys board, and the reset sets the screen to black.
@@ -91,9 +92,16 @@ For the villager face, I got an of the villager face on minecraft and drew out a
 
 
 ### **Simulation**
+<img width="830" height="325" alt="image" src="https://github.com/user-attachments/assets/201bb42b-272e-40c0-9f7f-57e7a7a3ff3f" />
+
 Show how you simulated your own design. Are there any things to note? Demonstrate your understanding. Add a screenshot. Guideline: 1-2 short paragraphs.
 ### **Synthesis**
+
+#### **RTL analysis**
+<img width="1832" height="713" alt="Screenshot 2026-11-25 011849" src="https://github.com/user-attachments/assets/a92c6f2d-fdb8-4f6e-aff0-44faa5322433" />
+
 Describe the synthesis & implementation outputs for your design, are there any differences to that of the original design? Guideline 1-2 short paragraphs.
+
 ### **Demonstration**
 If you get your own design working on the Basys3 board, take a picture! Guideline: 1-2 sentences.
 <img width="2060" height="1545" alt="image" src="https://github.com/user-attachments/assets/af78a474-fcfe-41ec-9b1c-69644cf76697" />
@@ -276,7 +284,87 @@ assign blue = blue_reg;
 
 endmodule
 ````
+Code for moving block:
+```verilog
+`timescale 1ns / 1ps
 
+module vga_car_scene 
+    (input clk, rst, vsync,
+     input [10:0] col, row,
+     output [3:0] red, green, blue 
+     );
+
+    reg [3:0] red_reg, green_reg, blue_reg, red_next, green_next, blue_next;
+
+    localparam CAR_W = 10'd70;
+    localparam CAR_H = 10'd35;
+    localparam CAR_Y = 10'd370;
+
+    reg [9:0] car_x = 10'd0;
+    reg vsync_prev;
+
+    always @(posedge clk) begin
+        if (rst) begin
+            car_x <= 10'd0;
+            vsync_prev <= 1'b1;
+        end else begin
+            vsync_prev <= vsync;
+            if (vsync_prev && !vsync) begin 
+                if (car_x >= 10'd640)
+                    car_x <= 10'd0;
+                else
+                    car_x <= car_x + 10'd3; 
+            end
+        end
+    end
+
+    
+    
+    wire [10:0] rel_x = (col >= car_x) ? (col - car_x) : (col + 11'd640 - car_x);
+    
+    wire is_car = (rel_x < CAR_W) && (row >= CAR_Y) && (row < CAR_Y + CAR_H);
+
+   
+    wire is_road = (row >= 10'd320);
+
+    
+    always @(*) begin
+        if (is_car) begin
+                red_next   <= 4'b1111;
+                green_next <= 4'b0000;
+                blue_next  <= 4'b0000; 
+        end
+        else if (is_road) begin
+                red_next   <= 4'b0100;
+                green_next <= 4'b0100;
+                blue_next  <= 4'b0100;
+        end
+        else begin
+                red_next   <= 4'b0101;
+                green_next <= 4'b1010;
+                blue_next  <= 4'b1111;
+        end
+    end
+
+always@(posedge clk, posedge rst) begin
+    if(rst == 1'b1) begin
+        red_reg   <= 4'b0000;
+        green_reg <= 4'b0000;
+        blue_reg  <= 4'b0000;
+    end
+    else begin
+        red_reg   <= red_next;
+        green_reg <= green_next;
+        blue_reg  <= blue_next;
+    end
+end
+
+assign red = red_reg;
+assign green = green_reg;
+assign blue = blue_reg;
+
+endmodule
+```
 
 
 ## References
