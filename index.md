@@ -103,6 +103,7 @@ For the villager face from Minecraft, I used a picture that had each pixel of th
 
 ### **Simulation**
 I simulated my own design by commenting out the color stripes module and replacing it with my module for the car scene in the testbench. I also changed the params to a smaller range so that it is easier to see the changes through the waveform.
+
 ```verilog
 parameter HDISP = 6;
 parameter VDISP = 2;
@@ -125,16 +126,17 @@ parameter T = 10;
 vga_car_scene #() i_vga_car_scene
     (.clk(clk), .rst(rst), .vsync(vsync), .row(row), .col(col), .red(red), .green(green), .blue(blue)
     );
-    
 ```
 
-
+Just like in the demo reset is high at the start to let the registers and counters initialize without random values. You can see when vsync goes low indicating that a frame has ended and it's going onto the next one that the car_x variable (the horizontal position of the car) increases each time. The colors don't change because of the limited size of the parameters to show the changes in vsync and car_x in the waveform. Because of the limited parameters for the testbench, vid_on is low during most of the waveform. This is because there is only 2 rows that are active, the others are for vertical blanking which is why vid_on is only high for two rows and low for the rest.
 <p align="center">
     <img width="1067" height="330" alt="image" src="https://github.com/user-attachments/assets/fc287b7f-ef3a-4e6b-878d-9a3ee683cb9b" />
 </p>
 
 
 ### **RTL analysis**
+RTL analysis basically checks for any kind of errors through your verilog code syntax, compliation and design rules. It then translates the verilog code into a netlist of gates and creates a viewable schematic. This is not FGPA tecnology mapping, it's not for the board your using specifically it is just for the structural and logical verification of your design.
+
 <img width="1832" height="713" alt="Screenshot 2026-11-25 011849" src="https://github.com/user-attachments/assets/a92c6f2d-fdb8-4f6e-aff0-44faa5322433" />
 
 ### **Synthesis**
