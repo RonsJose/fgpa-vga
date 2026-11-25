@@ -219,7 +219,9 @@ On positive edges of the clock cycle, this code check if reset has been set and 
 ```
 The first line is basicly an if statement condensed into one line using a ternany operator to check the position of where the car started compared to where the current pixel is. This is a very important line that makes it so that when the right side of the car hits the border the entire card doesnt get set to the start only the pixels that go beyond the 640 mark, thus a warping effect.
 
-The second line is the area in which the car is, uses the rel_x positon to determine 
+The second line checks to see if the current pixel being drawn is a pixel belonging to the car.
+
+The third row just says everything above(visually below) this point is the road, unless it is part of the car as stated in the line above.
 
 ```verilog
     wire [10:0] rel_x = (col >= car_x) ? (col - car_x) : (col + 11'd640 - car_x);
@@ -229,6 +231,7 @@ The second line is the area in which the car is, uses the rel_x positon to deter
    
     wire is_road = (row >= 10'd320);
 ```
+This section just assigns the rbg colour values from the sections defined eariler.
 
 ```verilog
     always @(*) begin
@@ -249,7 +252,7 @@ The second line is the area in which the car is, uses the rel_x positon to deter
         end
     end
 ```
-
+This registers the rbg outputs and then assigns them to the output wire, you could this another way but this is cleaner code.
 ```verilog
 always@(posedge clk, posedge rst) begin
     if(rst == 1'b1) begin
