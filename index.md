@@ -130,7 +130,7 @@ vga_car_scene #() i_vga_car_scene
 
 
 <p align="center">
-    <img width="830" height="325" alt="image" src="https://github.com/user-attachments/assets/201bb42b-272e-40c0-9f7f-57e7a7a3ff3f" />
+    <img width="1067" height="330" alt="image" src="https://github.com/user-attachments/assets/fc287b7f-ef3a-4e6b-878d-9a3ee683cb9b" />
 </p>
 
 
