@@ -78,7 +78,9 @@ I'll describe it in more detail when going over my designs synthesis but the sim
 
 
 ## **My VGA Design Edit**
-I want to make a car that endlessly goes across the screen, I don't think it will be that hard. It only has one moving component that only moves on one plane is a single direction. I think it is quite doable. [Video on motion and collision detection in vga](https://www.youtube.com/watch?v=PDgg1SN8g6s&t=1s)
+My design was to make something from the game crossy road, where I have a car/object just going across the road. It won't be the actual game where you're trying to get across the road but just the cars going in the backround. To do this I had figure out how to make the design of the car not be affected by the movement and how to get it moving in the first place. At first I wanted to have more than 1 car going in different directions but, I released it would be the same thing just on a different level and going in a different direction so I got bored and decided to do just one. [Video on motion and collision detection in vga](https://www.youtube.com/watch?v=PDgg1SN8g6s&t=1s)
+
+One of the harder parts was separating the road and the car, because the car is on the road, I had to figure out how to differenciate between the two. It took a while but I eventually got it working. The single hardest was the warping effect where if the car hit the end of the screen instead of teleporting the entire car back to the begining only the part of the car that went past the 640 pixel limit was sent back.
 
 
 ### **Code Adaptation**
@@ -89,7 +91,7 @@ At first I messed around with the colour stripes code and changed the rows and c
 </div>
 
 
-Then over the mid term, I tried to find a way to get the output of my verilog code displayed, and I came across the verilogVGA by Benjamin Otto on VS code. It's not the same as Vivado, and you have the change the template code a decent bit to get it to work but it does show you the display. At first I thought it only did static images but I found out recently that it does have support for moving images. By using the extension I figured out how to manipulate the pixels further by making some flags.
+Then over the mid term, I tried to find a way to get the output of my verilog code displayed, and I came across the verilogVGA by Benjamin Otto on VS code. It's not the same as Vivado, and you have the change the template code a decent bit to get it to work but it does show you the display. At first I thought it only did static images but I found out recently that it does have support for moving images. By using the extension I figured out how to manipulate the pixels further by making some flags for practice.
 
 <p align="center">
     <img width="400" height="110" alt="image" src="https://github.com/user-attachments/assets/14d19b8d-ae9e-4c7e-b757-a05fa3aabbe1" />
@@ -98,7 +100,7 @@ Then over the mid term, I tried to find a way to get the output of my verilog co
     <img width="400" height="300" alt="image" src="https://github.com/user-attachments/assets/fbce4d3b-6f97-49ea-9b44-55eeedf4d93a" />
 </p>
 
-Because I missed one the labs for an event, I didn't get the chance to test my final design on the board. So I adapted the code to work on the vs code extenstion. The colors are different from my final one on the board because the extension version uses 12 bit color opposed to the 4 bit on the board.
+Because I missed one the labs for an event, I didn't get the chance to test my final design on the board before the last lab session. So I looked into way to test dynamic images, this is when I learned that the vs code extenstion has support for moving images. So I worked on changes bits of my code so that it works on the vga simulator on vs code. I did get it working and the movement was what I wanted it to be.
 <p align="center">
     <img width="400" height="300" alt="image" src="https://github.com/user-attachments/assets/0d8931d7-a763-4365-9677-b31720feb29a" />
 </p>
@@ -107,6 +109,34 @@ For the villager face from Minecraft, I used a picture that had each pixel of th
 <p align="center">
     <img width="800" height="525" alt="image" src="https://github.com/user-attachments/assets/eda8c8d6-4182-4260-9b31-c0508af52b55" />
 </p>
+The code for the villager is very repetitive and similar, it consists of going through groups of pixels and colouring them. The logic behind them came from the sketch of the placement of the pixels.
+```verilog
+ if((row >= 11'd0 && row <11'd180) && (col >= 11'd0 && col <11'd80)) begin
+      red_next   <= 4'b1111;
+      green_next <= 4'b1100;
+      blue_next  <= 4'b1010;
+   end
+   else  if((row >= 11'd0 && row <11'd180) && (col>=11'd80 && col<11'd160)) begin
+      red_next   <= 4'b1111;
+      green_next <= 4'b1101;
+      blue_next  <= 4'b1011;;
+   end
+   else if((row >= 11'd0 && row < 11'd60) && (col>=11'd160 && col<11'd240)) begin
+      red_next   <= 4'b1111;
+      green_next <= 4'b1100;
+      blue_next  <= 4'b1010;
+   end
+   else if((row >= 11'd60 && row < 11'd180) && (col>=11'd160 && col<11'd240)) begin
+    red_next   <= 4'b1111;
+    green_next <= 4'b1101;
+    blue_next  <= 4'b1011;
+   end
+     else if((row >= 11'd0 && row < 11'd180) && (col>=11'd240 && col<11'd480)) begin
+    red_next   <= 4'b1111;
+    green_next <= 4'b1101;
+    blue_next  <= 4'b1011;
+   end
+```
 This is what it looks like all done.
 <img width="800" height="500" alt="image" src="https://github.com/user-attachments/assets/af78a474-fcfe-41ec-9b1c-69644cf76697" />
 
@@ -146,7 +176,7 @@ Just like in the demo reset is high at the start to let the registers and counte
 
 
 ### **RTL analysis**
-RTL analysis basically checks for any kind of errors through your verilog code syntax, compliation and design rules. It then translates the verilog code into a netlist of gates and creates a viewable schematic. This is not FGPA tecnology mapping, it's not for the board your using specifically it is just for the structural and logical verification of your design.
+RTL analysis basically checks for any kind of errors through your verilog code syntax, compliation and design rules. It then translates the verilog code into a netlist of gates and creates a viewable schematic. This is not FGPA tecnology mapping, it's not for the board your'e using specifically it is just for the structural and logical verification of your design.
 
 <img width="800" height="427" alt="image" src="https://github.com/user-attachments/assets/b5208e28-ecbb-4491-8ee6-c12518689fa8" />
 
@@ -155,7 +185,7 @@ You can see the different gates here, and, add, sub, greather than, less than, m
 
 
 ### **Synthesis**
-The synthesis takes the netlist from the RTL analysis and creates the FPGA netlist specific for the basys3. The outputs of my design are the same as the original although the process is different. The output for both are the rgb values, red, green & blue. 
+The synthesis takes the netlist from the RTL analysis and creates the FPGA netlist specific for the basys3. The output for both are the rgb values, red, green & blue. Implementation takes this netlist that is specific for the board and decides where and how to wire the components on the board. Although both have the same outputs, their logic utilization is different. My design uses more flip flops to store and track the cars horizontal movement across the frames. My design uses slightly fewer LUTs because the constant color regions for the sky, road, and car are simplier when synthesised compared to the combinational stripe generation logic in the demo.
 
 <p align="center">
 Original design synthesis : My design synthesis
@@ -173,6 +203,13 @@ Original design implementation : My design implementation
     <img width="399" height="400" alt="image" src="https://github.com/user-attachments/assets/3101bd68-f804-45bf-90c4-d42680027b64" style="width: 399px;"/>
 </div>
 
+<p align="center">
+Original design timings and utilization : My design timings and utilization
+</p>
+<div style="display: flex; gap: 1px;">
+    <img width="399" height="400" alt="image" src="https://github.com/user-attachments/assets/334e6368-af79-42d6-b33a-8b44feb85245" style="width: 399px;"/>
+    <img width="399" height="400" alt="image" src="https://github.com/user-attachments/assets/2a1b08b7-58a0-4dcd-a0bb-edbcc5c62723" style="width: 399px;"/>
+</div>
 
 
 ### **Demonstration**
@@ -299,3 +336,11 @@ endmodule
 [Repo of a design that I looked at](https://github.com/FPGADude/Digital-Design/blob/main/FPGA%20Projects/VGA%20Projects/VGA%20Bouncing%20Square/top.v)
 
 [Video explaining that design ^ ](https://www.youtube.com/watch?v=PDgg1SN8g6s&t=1s)
+
+VHDL Coding and Logic Synthesis with Synopsys, Weng Fook Lee.
+
+SystemVerilog for Verification, Chris Spear.
+
+[Crossy Road Game](https://crossyroadgame.io/)
+
+[Basys3 Board manual](https://digilent.com/reference/programmable-logic/basys-3/reference-manual)
