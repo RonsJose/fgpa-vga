@@ -207,8 +207,8 @@ Original design implementation : My design implementation
 Original design timings and utilization : My design timings and utilization
 </p>
 <div style="display: flex; gap: 1px;">
-    <img width="399" height="400" alt="image" src="https://github.com/user-attachments/assets/334e6368-af79-42d6-b33a-8b44feb85245" style="width: 399px;"/>
-    <img width="399" height="400" alt="image" src="https://github.com/user-attachments/assets/2a1b08b7-58a0-4dcd-a0bb-edbcc5c62723" style="width: 399px;"/>
+    <img width="399" height="200" alt="image" src="https://github.com/user-attachments/assets/334e6368-af79-42d6-b33a-8b44feb85245" style="width: 399px;"/>
+    <img width="399" height="200" alt="image" src="https://github.com/user-attachments/assets/2a1b08b7-58a0-4dcd-a0bb-edbcc5c62723" style="width: 399px;"/>
 </div>
 
 
