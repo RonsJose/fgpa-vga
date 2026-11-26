@@ -185,7 +185,7 @@ You can see the different gates here, and, add, sub, greather than, less than, m
 
 
 ### **Synthesis**
-The synthesis takes the netlist from the RTL analysis and creates the FPGA netlist specific for the basys3. The output for both are the rgb values, red, green & blue. Implementation takes this netlist that is specific for the board and decides where and how to wire the components on the board. Although both have the same outputs, their logic utilization is different. My design uses more flip flops to store and track the cars horizontal movement across the frames. My design uses slightly fewer LUTs because the constant color regions for the sky, road, and car are simplier when synthesised compared to the combinational stripe generation logic in the demo.
+The synthesis takes the netlist from the RTL analysis and creates the FPGA netlist specific for the basys3. The output for both are the rgb values, red, green & blue. Implementation takes this netlist that is specific for the board and decides where and how to wire the components on the board. Although both have the same outputs, their logic utilization is different. My design uses more flip flops to store and track the cars horizontal movement across the frames. My design uses slightly fewer LUTs because the constant color regions for the sky, road, and car are simpler when synthesised compared to the combinational stripe generation logic in the demo.
 
 <p align="center">
 Original design synthesis : My design synthesis
